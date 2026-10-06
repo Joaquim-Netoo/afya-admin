@@ -6,7 +6,7 @@
 |---|---|
 | **Aluno(a)** | Joaquim Camillo |
 | **Matrícula** | 2634825 |
-| **Faculdade** | sã lucas |
+| **Faculdade** | são lucas |
 | **Curso** | ccomp |
 | **Disciplina** | programacao para sistemas web |
 | **Professor(a)** | lilu |
