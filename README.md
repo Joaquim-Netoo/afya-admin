@@ -29,7 +29,7 @@ _preencher_
 É necessário o **.NET SDK 10** (`dotnet --version` deve começar com `10.`).
 
 ```bash
-git clone https://github.com/SEU-USUARIO/afya-admin.git
+git clone https://github.com/Joaquim-Netoo/afya-admin.git
 cd afya-admin
 dotnet watch
 ```
