@@ -51,13 +51,16 @@
                         <MudAvatar Size="Size.Large">
                             <MudImage Src="img/alex-morgan.jpg" Alt="Alex Morgan" />
                         </MudAvatar>
-                        <MudStack Spacing="0" Class="d-none d-md-flex">
-                            <MudStack Row="true" Spacing="2" AlignItems="AlignItems.Center">
-                                <MudText Typo="Typo.subtitle2">Alex Morgan</MudText>
-                                <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Text" Class="ma-0">Online</MudChip>
+                        @* o MudStack gera a própria classe d-flex, que anula o d-none; por isso as classes de exibição ficam no div *@
+                        <div class="d-none d-md-block">
+                            <MudStack Spacing="0">
+                                <MudStack Row="true" Spacing="2" AlignItems="AlignItems.Center">
+                                    <MudText Typo="Typo.subtitle2">Alex Morgan</MudText>
+                                    <MudChip T="string" Size="Size.Small" Color="Color.Success" Variant="Variant.Text" Class="ma-0">Online</MudChip>
+                                </MudStack>
+                                <MudText Typo="Typo.caption" Class="mud-text-secondary">alex.morgan@afya.com.br</MudText>
                             </MudStack>
-                            <MudText Typo="Typo.caption" Class="mud-text-secondary">alex.morgan@afya.com.br</MudText>
-                        </MudStack>
+                        </div>
                         <MudIcon Icon="@Icons.Material.Filled.KeyboardArrowDown" Size="Size.Small" />
                     </MudStack>
                 </ActivatorContent>
