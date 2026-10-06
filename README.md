@@ -12,151 +12,86 @@
 | **Professor(a)** | _preencher_ |
 | **Semestre** | 2026.2 |
 
+
 ## Objetivo do projeto
 
-_preencher_
+O projeto é um painel administrativo (dashboard) da plataforma fictícia "Afya Pedagógico", feito com Blazor WebAssembly e MudBlazor seguindo o tutorial da disciplina. A ideia é praticar a construção de uma interface completa só com componentes, sem escrever CSS.
 
-## Tecnologias utilizadas
-
-- .NET 10 / Blazor WebAssembly autônomo (standalone)
-- MudBlazor 9: componentes, tema, gráficos e classes utilitárias
-- C# e Razor
-- Fonte Inter (Google Fonts)
-- Git e GitHub
-
-## Como executar
-
-É necessário o **.NET SDK 10** (`dotnet --version` deve começar com `10.`).
-
-```bash
-git clone https://github.com/Joaquim-Netoo/afya-admin.git
-cd afya-admin
-dotnet watch
-```
-
-O `dotnet watch` compila, abre o navegador e recarrega a página a cada alteração salva.
-A URL aparece no terminal; a porta fica em `Properties/launchSettings.json`.
-
-## Telas
-
-### Tema claro
-![Dashboard — tema claro](docs/prints/tema-claro.png)
-
-### Tema escuro
-![Dashboard — tema escuro](docs/prints/tema-escuro.png)
-
-### Versão mobile
-![Dashboard — celular](docs/prints/mobile.png)
-
-### HTML gerado (DevTools)
-![Inspeção do HTML no DevTools](docs/prints/devtools.png)
-
-_preencher: o que o print mostra_
-
-## Estrutura do projeto
-
-```
-afya-admin/
-├── Components/
-│   ├── AtividadesRecentes.razor
-│   ├── CabecalhoPagina.razor
-│   ├── DashboardCard.razor
-│   ├── GraficoDistribuicaoClientes.razor
-│   ├── GraficoReceita.razor
-│   ├── KpiCard.razor
-│   ├── PerformanceProjetos.razor
-│   ├── ProjetosRecentes.razor
-│   ├── SeletorPeriodo.razor
-│   └── Ui.cs
-├── Data/
-│   └── DashboardData.cs
-├── Layout/
-│   ├── MainLayout.razor
-│   └── NavMenu.razor
-├── Pages/
-│   ├── Dashboard.razor
-│   └── NotFound.razor
-├── Properties/launchSettings.json
-├── docs/prints/
-├── wwwroot/
-│   ├── css/app.css
-│   ├── img/alex-morgan.jpg
-│   └── index.html
-├── _Imports.razor
-├── afya-admin.csproj
-├── App.razor
-└── Program.cs
-```
-
-| Pasta | Papel |
-|---|---|
-| `Components` | blocos visuais reutilizáveis, que recebem os dados por parâmetros |
-| `Data` | modelos (`record`) e dados fictícios do dashboard |
-| `Layout` | moldura comum a todas as páginas: tema, AppBar, sidebar e menu |
-| `Pages` | componentes com rota (`@page`); o `Dashboard.razor` só monta os componentes |
-| `wwwroot` | arquivos estáticos servidos ao navegador: `index.html`, CSS do template e imagens |
-
-## Componentes criados
-
-| Componente | Responsabilidade | Parâmetros que recebe |
-|---|---|---|
-| `DashboardCard` | card base com título, subtítulo opcional, área de ações, menu "⋮" opcional e conteúdo | `Titulo` (obrigatório), `Subtitulo`, `Acoes`, `Menu`, `ChildContent` |
-| `CabecalhoPagina` | título e subtítulo da página, com os botões de ação à direita | `Titulo` (obrigatório), `Subtitulo`, `Acoes` |
-| `SeletorPeriodo` | menu com cara de botão para escolher o período; funciona com `@bind-Valor` | `Opcoes` (obrigatório), `Valor`, `ValorChanged` |
-| `KpiCard` | indicador com ícone, valor, variação e sparkline | `Kpi` (obrigatório) |
-| `GraficoReceita` | gráfico de linha Receita x Meta com legenda própria | `Meses`, `Receita`, `Meta` (obrigatórios) |
-| `GraficoDistribuicaoClientes` | gráfico de rosca com o total no centro e legenda com percentuais | `Total`, `Segmentos` (obrigatórios) |
-| `PerformanceProjetos` | lista de projetos com barra de progresso, percentual e tarefas | `Projetos` (obrigatório) |
-| `AtividadesRecentes` | feed com ícone da ação, avatar com iniciais, descrição e tempo | `Atividades` (obrigatório) |
-| `ProjetosRecentes` | tabela responsiva com status, progresso, prazo e menu de ações | `Projetos` (obrigatório) |
-
-`Ui.cs` não é um componente: é uma classe estática com `FundoSuave` (classe de fundo suave da cor) e `Iniciais` (iniciais de um nome).
+A página tem um sidebar com o menu, uma AppBar com busca, troca de tema, notificações e usuário, e o conteúdo do dashboard: 4 indicadores com mini gráficos, um gráfico de linha de receita x meta, um gráfico de rosca de clientes, a performance dos projetos, as atividades recentes e uma tabela de projetos. Todos os dados são fictícios e ficam em `Data/DashboardData.cs`.
 
 ## O que aprendi
 
-1. **Como uma aplicação Blazor WebAssembly inicia no navegador?**
+**1. Como a aplicação inicia** (ver `wwwroot/index.html` e `Program.cs`)
 
-   _preencher_
+O navegador abre o `wwwroot/index.html`, que é a única página HTML de verdade. Nele existe a `<div id="app">` com a animação de carregamento e o script `_framework/blazor.webassembly.js`, que baixa o runtime do .NET em WebAssembly e as DLLs do projeto. O runtime executa o `Program.cs`, que registra os serviços (`AddMudServices`) e, com `RootComponents.Add<App>("#app")`, coloca o componente `App` dentro da div, no lugar do carregamento. O `App.razor` tem o roteador, que olha a URL e mostra a página certa dentro do `MainLayout`.
 
-2. **Qual é a diferença entre um Layout, uma Page e um Component neste projeto?**
+**2. Layout, Page e Component** (ver `Layout/MainLayout.razor`, `Pages/Dashboard.razor`, `Components/KpiCard.razor`)
 
-   _preencher_
+O Layout é a moldura que aparece em todas as páginas: o `MainLayout.razor` tem a AppBar, o sidebar e o `@Body`. A Page é um componente com rota: o `Dashboard.razor` tem `@page "/"` e é renderizado no lugar do `@Body`. O Component é uma peça reutilizável sem rota, que recebe dados por parâmetro, como o `KpiCard`, usado 4 vezes no `Dashboard.razor`.
 
-3. **O que é um `RenderFragment` e como o `DashboardCard` usa esse recurso?**
+**3. RenderFragment e o DashboardCard** (ver `Components/DashboardCard.razor` e quem o usa)
 
-   _preencher_
+`RenderFragment` é um parâmetro que recebe um pedaço de marcação em vez de um valor. O `DashboardCard` tem três: `Acoes`, `Menu` e `ChildContent`. O `GraficoReceita` preenche `Acoes` com a legenda e `Menu` com os itens do "⋮"; o `ProjetosRecentes` põe o botão "Ver todos" em `Acoes` e não passa `Menu`, e por isso o "⋮" nem aparece (`@if (Menu is not null)`). A estrutura do card fica escrita uma vez só.
 
-4. **Como funciona o `@bind-Valor` no `SeletorPeriodo`? Qual é o papel do `ValorChanged`?**
+**4. @bind-Valor e ValorChanged** (ver `Components/SeletorPeriodo.razor`)
 
-   _preencher_
+O Blazor tem a convenção de que um parâmetro `Valor` junto com um `EventCallback` chamado `ValorChanged` permite escrever `@bind-Valor`. No `Dashboard.razor` usei `@bind-Valor="_periodo"`: o Blazor passa `_periodo` para dentro do componente e, quando clico numa opção, o `SelecionarAsync` chama `ValorChanged.InvokeAsync(opcao)`, que atualiza o `_periodo` da página. O seletor não muda o próprio `Valor`; ele só avisa, e quem é dono do estado é a página.
 
-5. **Por que os dados ficam na pasta `Data`, separados dos componentes?**
+**5. Por que a pasta Data** (ver `Data/DashboardData.cs`)
 
-   _preencher_
+A pasta `Data` diz o que mostrar (records como `Kpi` e `ProjetoRecente` e as listas fake) e os componentes dizem como mostrar. Como cada componente recebe os dados por parâmetro, por exemplo `<KpiCard Kpi="kpi" />`, se os dados vierem de uma API eu só troco a origem, e os componentes continuam iguais.
 
-6. **Como o `MudGrid` com `xs`, `sm` e `lg` reorganiza os cards de KPI?**
+**6. MudGrid com xs, sm e lg** (ver o `MudGrid` em `Pages/Dashboard.razor`)
 
-   _preencher_
+O `MudGrid` divide a largura em 12 colunas e cada `MudItem` diz quantas ocupa em cada tamanho de tela. Com `xs="12" sm="6" lg="3"`, no celular (menos de 600px) cada KPI ocupa as 12 colunas e fica 1 por linha; a partir de 600px ocupa 6 e ficam 2 por linha; a partir de 1280px ocupa 3 e ficam os 4 lado a lado. Cada valor vale daquele tamanho para cima.
 
-7. **Como foi possível estilizar a página inteira sem escrever CSS?**
+**7. Estilizar sem CSS** (ver o `_theme` em `Layout/MainLayout.razor` e `Components/Ui.cs`)
 
-   _preencher_
+Usei três coisas: os parâmetros dos componentes (`Elevation`, `Variant`, `Color`, `Size`), o tema e as classes utilitárias do MudBlazor. O `MudTheme` fica no `MainLayout.razor` e define as paletas clara e escura, o arredondamento, a altura da AppBar e a tipografia; os componentes leem as cores de variáveis CSS geradas pelo tema, e por isso o modo escuro funciona só trocando o `IsDarkMode`. As classes utilitárias como `pa-4`, `d-flex` e `mud-text-secondary` cuidam de espaçamento e alinhamento, e o `Ui.FundoSuave` monta a classe `mud-success-hover` para o fundo pastel dos ícones.
 
-8. **Por que o namespace do projeto é `afya_admin` e não `afya-admin`?**
+**8. Namespace afya_admin** (ver `Program.cs` e `_Imports.razor`)
 
-   _preencher_
+O .NET usa o nome do projeto como namespace raiz, mas o hífen não é permitido em identificadores C#: `afya-admin` seria lido como uma subtração. O SDK troca o caractere inválido por sublinhado. Por isso a pasta e o `.csproj` se chamam `afya-admin`, e no código aparece `afya_admin`, como em `@using afya_admin.Components`.
+
+## HTML gerado (DevTools)
+
+O texto abaixo descreve o HTML real da aplicação. Confira se o seu print mostra o mesmo elemento antes de usar.
+
+Inspecionei o card de KPI "Receita" e o botão "Novo Projeto". O `<MudPaper Elevation="1" Class="pa-4" Height="100%">` virou `<div class="mud-paper mud-elevation-1 pa-4" style="height:100%;">`: a classe `pa-4` que escrevi no `Class` aparece igual no HTML, junto com as que o MudBlazor adiciona. O `<MudStack Row="true" Spacing="3" AlignItems="AlignItems.Center">` virou `<div role="group" class="d-flex flex-row align-center gap-3">`. O `<MudButton>` virou um `<button type="button">` com as classes `mud-button-root mud-button mud-button-filled mud-button-filled-primary mud-button-filled-size-large`, e o ícone é um `<svg>` dentro de um `<span class="mud-button-icon-start">`.
 
 ## Dificuldades e soluções
 
-_preencher_
+Estes problemas aconteceram de verdade na construção deste projeto. Para ver cada correção, rode `git show <commit>` na pasta do projeto.
 
-## Melhorias futuras
+**1. Os menus de notificações e do usuário não abriam** (commit `2d0cab7`)
 
-**Desafio 7 da seção 20 implementado — lembrar o tema.** O `MainLayout.razor` injeta o `IJSRuntime` e, na primeira renderização (`OnAfterRenderAsync`), lê a chave `tema` do `localStorage`. Se existir, aplica o tema salvo; se não existir, usa o tema do sistema operacional com `GetSystemDarkModeAsync()` do `MudThemeProvider`. Ao clicar no botão de tema, a escolha é gravada no `localStorage`, sem arquivo JavaScript próprio.
+Com o código do tutorial, clicar no sino e no avatar não fazia nada, enquanto o menu de período e os "⋮" dos cards funcionavam. O template instalou o MudBlazor 9.11.0, e nessa versão o `ActivatorContent` do `MudMenu` recebe um `MenuContext` e não abre mais o menu sozinho no clique. A solução foi chamar `context.ToggleAsync` no `@onclick` do elemento ativador, no `MainLayout.razor`.
 
-Próximos passos possíveis:
+**2. O nome do usuário não sumia no celular** (commit `d798fae`)
 
-- criar as páginas do menu (Clientes, Projetos...) e fazer o breadcrumb acompanhar a rota;
-- fazer o período selecionado alterar os valores dos KPIs;
-- carregar os dados de um JSON com `HttpClient` e, depois, de um serviço `IDashboardService`;
-- fazer a busca da AppBar filtrar a tabela de Projetos Recentes.
+O tutorial usa `Class="d-none d-md-flex"` no `MudStack` com o nome e o e-mail, mas no modo celular o nome continuava aparecendo e estourava a AppBar. Inspecionando o HTML vi que o `MudStack` gera a própria classe `d-flex`, e no CSS do MudBlazor a regra `.d-flex` vem depois da `.d-none`, as duas com `!important`, então a `d-flex` vence. Resolvi colocando as classes num `div` em volta (`d-none d-md-block`), sem escrever CSS.
+
+**3. O comando `dotnet` não funcionava**
+
+`dotnet --version` respondia "No .NET SDKs were found": a máquina tinha só o runtime do .NET 10, e não o SDK. Instalei o SDK com `winget install Microsoft.DotNet.SDK.10`.
+
+**4. Linhas cortadas no PDF do tutorial**
+
+Em `Data/DashboardData.cs`, as linhas dos projetos "Portal Institucional" e "Aplicativo Mobile" estavam cortadas na margem do PDF, sem o progresso e o prazo. Usei valores coerentes com o resto da tabela (72% / 30 Set e 65% / 05 Out). Se você tiver o tutorial original em Markdown, troque pelos valores de lá.
+
+---
+
+## O que falta você fazer
+
+Repositório: https://github.com/Joaquim-Netoo/afya-admin (o remoto `origin` já está configurado).
+
+1. Fazer o primeiro push no seu terminal, para entrar na conta do GitHub:
+   `git -C C:\projetos\afya-admin push -u origin main`
+2. Tirar o print do DevTools:
+   - em `C:\projetos\afya-admin`, rodar `dotnet watch`;
+   - no navegador, F12 → aba Elements → Ctrl + Shift + C → clicar no card "Receita";
+   - expandir o `div.mud-paper` até aparecer o `div.d-flex.flex-row` de dentro;
+   - Win + Shift + S, capturar a janela e salvar em `C:\projetos\afya-admin\docs\prints\devtools.png`.
+3. No `README.md`: preencher a identificação e trocar cada `_preencher_` pelo seu texto.
+4. Commit e push, depois abrir o link numa janela anônima e conferir que os 4 prints aparecem.
+5. Enviar o link no Canvas.
