@@ -5,11 +5,11 @@
 | | |
 |---|---|
 | **Aluno(a)** | Joaquim Camillo |
-| **Matrícula** | _preencher_ |
-| **Faculdade** | _preencher_ |
-| **Curso** | _preencher_ |
-| **Disciplina** | _preencher_ |
-| **Professor(a)** | _preencher_ |
+| **Matrícula** | 2634825 |
+| **Faculdade** | sã lucas |
+| **Curso** | ccomp |
+| **Disciplina** | programacao para sistemas web |
+| **Professor(a)** | lilu |
 | **Semestre** | 2026.2 |
 
 
@@ -78,20 +78,3 @@ O tutorial usa `Class="d-none d-md-flex"` no `MudStack` com o nome e o e-mail, m
 **4. Linhas cortadas no PDF do tutorial**
 
 Em `Data/DashboardData.cs`, as linhas dos projetos "Portal Institucional" e "Aplicativo Mobile" estavam cortadas na margem do PDF, sem o progresso e o prazo. Usei valores coerentes com o resto da tabela (72% / 30 Set e 65% / 05 Out). Se você tiver o tutorial original em Markdown, troque pelos valores de lá.
-
----
-
-## O que falta você fazer
-
-Repositório: https://github.com/Joaquim-Netoo/afya-admin (o remoto `origin` já está configurado).
-
-1. Fazer o primeiro push no seu terminal, para entrar na conta do GitHub:
-   `git -C C:\projetos\afya-admin push -u origin main`
-2. Tirar o print do DevTools:
-   - em `C:\projetos\afya-admin`, rodar `dotnet watch`;
-   - no navegador, F12 → aba Elements → Ctrl + Shift + C → clicar no card "Receita";
-   - expandir o `div.mud-paper` até aparecer o `div.d-flex.flex-row` de dentro;
-   - Win + Shift + S, capturar a janela e salvar em `C:\projetos\afya-admin\docs\prints\devtools.png`.
-3. No `README.md`: preencher a identificação e trocar cada `_preencher_` pelo seu texto.
-4. Commit e push, depois abrir o link numa janela anônima e conferir que os 4 prints aparecem.
-5. Enviar o link no Canvas.
