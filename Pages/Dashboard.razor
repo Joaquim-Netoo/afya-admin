@@ -16,6 +16,10 @@
             <KpiCard Kpi="kpi" />
         </MudItem>
     }
+
+    <MudItem xs="12" lg="7">
+        <GraficoReceita Meses="DashboardData.Meses" Receita="DashboardData.ReceitaMensal" Meta="DashboardData.MetaMensal" />
+    </MudItem>
 </MudGrid>
 
 @code {
